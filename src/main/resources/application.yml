@@ -28,7 +28,7 @@ spring:
     locations: classpath:db/migration/structure, classpath:db/migration/data
     validate-on-migrate: true
     default-schema: public
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/auth-service}
     user: ${DATASOURCE_USERNAME:postgres}
     password: ${DATASOURCE_PASSWORD:postgres}
 
@@ -36,8 +36,6 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
-  #      username: ${REDIS_USERNAME:redis}
-  #      password: ${REDIS_PASSWORD:redis}
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -49,22 +47,22 @@ spring:
       client:
         registration:
           google:
-            clientId:
-            clientSecret:
+            clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
+            clientSecret: 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
             redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
-            clientId:
-            clientSecret:
+            clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
+            clientSecret: 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
             redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
             scope:
               - email
               - public_profile
           github:
-            clientId:
-            clientSecret:
+            clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
+            clientSecret: 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
             redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
             scope:
               - user:email
