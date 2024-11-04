@@ -2,12 +2,12 @@ package com.kkimleang.authservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import java.io.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +23,6 @@ public class Role extends BaseEntityAudit {
     @NotNull
     private String name;
 
-    public Role() {}
-
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_roles_permissions",
@@ -32,4 +30,12 @@ public class Role extends BaseEntityAudit {
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return name.equals(role.name);
+    }
 }

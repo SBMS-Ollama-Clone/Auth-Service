@@ -2,10 +2,12 @@ package com.kkimleang.authservice.dto.user;
 
 import com.kkimleang.authservice.enumeration.AuthProvider;
 import com.kkimleang.authservice.model.User;
-import java.util.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter

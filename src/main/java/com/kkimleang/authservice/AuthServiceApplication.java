@@ -1,6 +1,6 @@
 package com.kkimleang.authservice;
 
-import com.redis.om.spring.annotations.*;
+import com.redis.om.spring.annotations.EnableRedisEnhancedRepositories;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;

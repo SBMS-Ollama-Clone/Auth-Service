@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties(value = { RSAKeyProperties.class, TokenProperties.class, CORSProperties.class, OAuthProperties.class })
+@EnableConfigurationProperties(value = {RSAKeyProperties.class, TokenProperties.class, CORSProperties.class, OAuthProperties.class})
 public class ApplicationConfig {
     private final UserDetailsService userDetailsService;
 

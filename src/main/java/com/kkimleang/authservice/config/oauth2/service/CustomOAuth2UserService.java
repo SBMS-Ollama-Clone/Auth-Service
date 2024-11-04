@@ -1,8 +1,5 @@
 package com.kkimleang.authservice.config.oauth2.service;
 
-import java.util.Optional;
-import java.util.Set;
-
 import com.kkimleang.authservice.config.oauth2.user.OAuth2UserInfo;
 import com.kkimleang.authservice.config.oauth2.user.OAuth2UserInfoFactory;
 import com.kkimleang.authservice.enumeration.AuthProvider;
@@ -12,6 +9,7 @@ import com.kkimleang.authservice.model.User;
 import com.kkimleang.authservice.repository.UserRepository;
 import com.kkimleang.authservice.service.user.CustomUserDetails;
 import com.kkimleang.authservice.service.user.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,8 +18,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

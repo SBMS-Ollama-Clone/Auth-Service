@@ -2,17 +2,19 @@ package com.kkimleang.authservice.controller;
 
 import com.kkimleang.authservice.annotation.CurrentUser;
 import com.kkimleang.authservice.dto.Response;
-import com.kkimleang.authservice.dto.user.*;
-import com.kkimleang.authservice.model.Permission;
-import com.kkimleang.authservice.model.Role;
+import com.kkimleang.authservice.dto.user.UpdateProfileRequest;
+import com.kkimleang.authservice.dto.user.UserDto;
 import com.kkimleang.authservice.model.User;
 import com.kkimleang.authservice.service.user.CustomUserDetails;
 import com.kkimleang.authservice.service.user.UserService;
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -74,7 +76,6 @@ public class UserController {
             @RequestBody UpdateProfileRequest request) {
         try {
             User user = userService.findByEmail(currentUser.getEmail());
-            System.out.println(user.getId());
             if (!user.getId().equals(request.getId())) {
                 return Response.<UserDto>accessDenied()
                         .setErrors("You are not allowed to update this user profile");

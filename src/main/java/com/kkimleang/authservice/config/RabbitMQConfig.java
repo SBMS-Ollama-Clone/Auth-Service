@@ -21,24 +21,24 @@ public class RabbitMQConfig {
     private String emailRoutingKey;
 
     @Bean
-    public Queue emailQueue(){
+    public Queue emailQueue() {
         return new Queue(emailQueue);
     }
 
     @Bean
-    public TopicExchange emailExchange(){
+    public TopicExchange emailExchange() {
         return new TopicExchange(emailExchange);
     }
 
     @Bean
-    public Binding emailBinding(){
+    public Binding emailBinding() {
         return BindingBuilder.bind(emailQueue())
                 .to(emailExchange())
                 .with(emailRoutingKey);
     }
 
     @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory){
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;

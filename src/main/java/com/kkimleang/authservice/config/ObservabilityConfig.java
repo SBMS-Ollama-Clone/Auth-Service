@@ -1,8 +1,9 @@
 package com.kkimleang.authservice.config;
 
-import io.micrometer.observation.*;
-import io.micrometer.observation.aop.*;
-import org.springframework.context.annotation.*;
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.aop.ObservedAspect;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ObservabilityConfig {

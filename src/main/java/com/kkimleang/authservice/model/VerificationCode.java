@@ -1,8 +1,12 @@
 package com.kkimleang.authservice.model;
 
 import jakarta.persistence.*;
-import java.io.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serial;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -19,4 +23,18 @@ public class VerificationCode extends BaseEntityAudit {
     private String code;
     private Boolean isExpired = false;
     private Boolean isUsed = false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        VerificationCode that = (VerificationCode) o;
+        return Objects.equals(user, that.user) && Objects.equals(code, that.code) && Objects.equals(isExpired, that.isExpired) && Objects.equals(isUsed, that.isUsed);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), user, code, isExpired, isUsed);
+    }
 }

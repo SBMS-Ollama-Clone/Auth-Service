@@ -2,7 +2,9 @@
 
 ## Auth Service
 
-This service is responsible for user authentication and authorization. It uses JWT tokens to authenticate users and authorize them to access the system. It also provides an OAuth2 endpoint for third-party applications to authenticate users.
+This service is responsible for user authentication and authorization. It uses JWT tokens to authenticate users and
+authorize them to access the system. It also provides an OAuth2 endpoint for third-party applications to authenticate
+users.
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=bugs)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
@@ -10,17 +12,23 @@ This service is responsible for user authentication and authorization. It uses J
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=ncloc)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
 
 ### Getting Started
-1. To build and run sample applications you need to have Maven, JDK22 and Docker. However, the simplest way to start with it is through any IDE like Intellij or Eclipse.
-2. First, you have to run require utility services on Docker container, go to `DevOps-Deployment` folder and run the following command:
+
+1. To build and run sample applications you need to have Maven, JDK22 and Docker. However, the simplest way to start
+   with it is through any IDE like Intellij or Eclipse.
+2. First, you have to run require utility services on Docker container, go to `DevOps-Deployment` folder and run the
+   following command:
     ```bash
     docker-compose up -d
     ```
 3. Then you can compile your application with Maven `mvn clean install package` command.
 4. Or you can run directly from your IDE by running the `AuthServiceApplication.java` file.
 
-### Architecture 
+### Architecture
+
 Our sample microservices-based system consists of the following modules:
-- **Gateway Service** - the main entry point into the system. This is where all incoming requests are routed to the appropriate microservice. Port 8080.
+
+- **Gateway Service** - the main entry point into the system. This is where all incoming requests are routed to the
+  appropriate microservice. Port 8080.
 - **Config Server** - responsible for keeping the configuration of all services in the system. Port 8888.
 - **Auth Service** - responsible for user authentication and authorization. Port 8888.
 - **Chat Service** - responsible for handling chat of users and save in the `chat-service` DB. Port 9990.
@@ -31,6 +39,7 @@ Our sample microservices-based system consists of the following modules:
 - **Hashicorp Consul Discovery Service** - responsible for service discovery and registration. Port 8500. (Using Docker)
 
 ### Author
+
 [![Email](https://img.shields.io/badge/Email-Kimleang-blue?style=flat&logo=gmail)](mailto:kimleang.srd@gmail.com)<br/>
 [![Website](https://img.shields.io/badge/Website-Kimleang-blue?style=flat&logo=google-chrome)](https://kkimleang.com)<br/>
 [![Github](https://img.shields.io/badge/Github-Kimleang-blue?style=flat&logo=github)](https://github.com/KimleangSama)<br/>

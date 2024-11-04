@@ -1,15 +1,16 @@
 package com.kkimleang.authservice.model;
 
-import com.redis.om.spring.annotations.*;
+import com.redis.om.spring.annotations.Indexed;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter

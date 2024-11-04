@@ -14,6 +14,7 @@ import java.io.IOException;
 @Component
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
     private static final Logger logger = LoggerFactory.getLogger(RestAccessDeniedHandler.class);
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         logger.error("Responding with access denied error. Message - {}", e.getMessage());

@@ -1,12 +1,14 @@
 package com.kkimleang.authservice.service.user;
 
 import com.kkimleang.authservice.exception.ResourceNotFoundException;
-import com.kkimleang.authservice.model.*;
-import com.kkimleang.authservice.repository.*;
-import java.util.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.stereotype.*;
+import com.kkimleang.authservice.model.User;
+import com.kkimleang.authservice.model.VerificationCode;
+import com.kkimleang.authservice.repository.VerificationCodeRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @Service

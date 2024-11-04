@@ -3,7 +3,6 @@ package com.kkimleang.authservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.util.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,11 +21,11 @@ import java.time.Instant;
 public class Response<T> implements Serializable {
     private Status status;
     private int statusCode;
-    private T payload;
-    private Object errors;
+    private transient T payload;
+    private transient Object errors;
     private boolean success = false;
     private Instant timestamp = Instant.now();
-    private Object metadata;
+    private transient Object metadata;
 
     public static <T> Response<T> badRequest() {
         Response<T> response = new Response<>();

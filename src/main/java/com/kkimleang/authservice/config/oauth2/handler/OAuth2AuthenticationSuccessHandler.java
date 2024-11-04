@@ -1,28 +1,27 @@
 package com.kkimleang.authservice.config.oauth2.handler;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import com.kkimleang.authservice.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.kkimleang.authservice.config.properties.OAuthProperties;
-import com.kkimleang.authservice.util.TokenProvider;
 import com.kkimleang.authservice.exception.BadRequestException;
 import com.kkimleang.authservice.exception.ResourceNotFoundException;
 import com.kkimleang.authservice.model.User;
 import com.kkimleang.authservice.repository.UserRepository;
 import com.kkimleang.authservice.util.CookieUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
-
+import com.kkimleang.authservice.util.TokenProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import static com.kkimleang.authservice.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 

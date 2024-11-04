@@ -1,16 +1,17 @@
 package com.kkimleang.authservice.config;
 
-import jakarta.validation.constraints.*;
-import org.slf4j.*;
-import org.springframework.cache.*;
+import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachingConfigurer;
-import org.springframework.cache.interceptor.*;
+import org.springframework.cache.interceptor.CacheErrorHandler;
+import org.springframework.cache.interceptor.SimpleCacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.*;
-
-import org.springframework.data.redis.core.*;
-import org.springframework.lang.*;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 
 @Configuration
 public class RedisCacheConfig implements CachingConfigurer {

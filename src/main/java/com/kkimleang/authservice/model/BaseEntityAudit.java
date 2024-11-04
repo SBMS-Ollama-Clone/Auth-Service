@@ -1,10 +1,15 @@
 package com.kkimleang.authservice.model;
 
-import jakarta.persistence.*;
-import java.io.*;
-import java.util.*;
-import lombok.*;
-import org.hibernate.annotations.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Setter

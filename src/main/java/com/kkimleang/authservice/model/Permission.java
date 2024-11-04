@@ -1,11 +1,15 @@
 package com.kkimleang.authservice.model;
 
-import jakarta.persistence.*;
-import java.io.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -18,13 +22,19 @@ public class Permission extends BaseEntityAudit implements GrantedAuthority, Ser
 
     private String name;
 
-    public Permission() {}
-    public Permission(String name) {
-        this.name = name;
+    public Permission() {
     }
 
     @Override
     public String getAuthority() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Permission permission = (Permission) obj;
+        return name.equals(permission.name);
     }
 }

@@ -1,15 +1,18 @@
 package com.kkimleang.authservice.dto.user;
 
 import com.kkimleang.authservice.model.Role;
-import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.Set;
+import java.util.UUID;
+
 @Getter
 @Setter
 @ToString
-public class RoleDto {
+public class RoleDto implements Serializable {
     private UUID id;
     private String name;
     private Set<PermissionDto> permissions;

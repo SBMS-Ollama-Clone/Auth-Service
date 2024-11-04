@@ -1,32 +1,27 @@
 package com.kkimleang.authservice.config.filter;
 
-import io.micrometer.common.lang.NonNullApi;
-import jakarta.validation.constraints.*;
-
-import java.io.IOException;
-
-import com.kkimleang.authservice.util.TokenProvider;
 import com.kkimleang.authservice.model.User;
+import com.kkimleang.authservice.repository.UserRepository;
 import com.kkimleang.authservice.service.user.CustomUserDetails;
-import com.kkimleang.authservice.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.*;
+import com.kkimleang.authservice.util.TokenProvider;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
+@RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-    @Autowired
-    private TokenProvider tokenProvider;
-    @Autowired
-    private UserService userService;
+    private final UserRepository userRepository;
+    private final TokenProvider tokenProvider;
 
     @Override
     protected void doFilterInternal(
@@ -38,7 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
             if (StringUtils.hasText(jwt) && tokenProvider.isTokenNotExpired(jwt)) {
                 email = tokenProvider.getUserEmailFromToken(jwt);
-                User user = userService.findByEmail(email);
+                User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
                 if (tokenProvider.isTokenValid(jwt, user)) {
                     CustomUserDetails customUserDetails = new CustomUserDetails(user, null);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

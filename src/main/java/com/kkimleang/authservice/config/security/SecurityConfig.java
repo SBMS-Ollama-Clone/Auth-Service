@@ -1,9 +1,5 @@
 package com.kkimleang.authservice.config.security;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import com.kkimleang.authservice.config.filter.TokenAuthenticationFilter;
 import com.kkimleang.authservice.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.kkimleang.authservice.config.oauth2.handler.OAuth2AuthenticationFailureHandler;
@@ -12,6 +8,9 @@ import com.kkimleang.authservice.config.oauth2.handler.RestAccessDeniedHandler;
 import com.kkimleang.authservice.config.oauth2.handler.RestAuthenticationEntryPoint;
 import com.kkimleang.authservice.config.oauth2.service.CustomOAuth2UserService;
 import com.kkimleang.authservice.config.properties.CORSProperties;
+import com.kkimleang.authservice.repository.UserRepository;
+import com.kkimleang.authservice.util.TokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -27,10 +26,11 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -41,12 +41,14 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
+    private final UserRepository userRepository;
+    private final TokenProvider tokenProvider;
     private final CORSProperties corsProperties;
+    private static final String AUTHORIZATION = "Authorization";
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter();
+        return new TokenAuthenticationFilter(userRepository, tokenProvider);
     }
 
     /*
@@ -65,7 +67,7 @@ public class SecurityConfig {
         return new MvcRequestMatcher.Builder(introspector);
     }
 
-    private final String[] FREE_URLS = {
+    private final String[] freeURLs = {
             "/api/auth/signup",
             "/api/auth/login",
             "/api/auth/verify",
@@ -102,15 +104,15 @@ public class SecurityConfig {
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                         .failureHandler(oAuth2AuthenticationFailureHandler))
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers(FREE_URLS)
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                        authorize.requestMatchers(freeURLs)
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
                         logout.logoutUrl("/api/auth/logout")
-                                .addLogoutHandler((request, response, authentication) -> {
-                                    final String header = request.getHeader("Authorization");
+                                .addLogoutHandler((request, _, _) -> {
+                                    final String header = request.getHeader(AUTHORIZATION);
                                     final String jwt;
                                     if (header == null || !header.startsWith("Bearer ")) {
                                         return;
@@ -120,7 +122,7 @@ public class SecurityConfig {
                                         SecurityContextHolder.clearContext();
                                     }
                                 })
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                                .logoutSuccessHandler((_, _, _) -> SecurityContextHolder.clearContext())
                 )
                 .getOrBuild();
     }
@@ -128,12 +130,12 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedHeaders(List.of("Authorization"));
-        for(String corsProperty : corsProperties.getAllowedOrigins()) {
+        configuration.setAllowedHeaders(List.of(AUTHORIZATION));
+        for (String corsProperty : corsProperties.getAllowedOrigins()) {
             configuration.addAllowedOrigin(corsProperty);
         }
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type", "Content-Type", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin"));
+        configuration.setAllowedHeaders(Arrays.asList(AUTHORIZATION, "Requestor-Type", "Content-Type", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin"));
         configuration.setExposedHeaders(Arrays.asList("X-Get-Header", "Access-Control-Allow-Methods", "Access-Control-Allow-Origin"));
         configuration.setAllowedMethods(Collections.singletonList("*"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

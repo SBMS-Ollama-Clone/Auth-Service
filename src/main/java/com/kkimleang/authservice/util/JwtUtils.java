@@ -9,8 +9,7 @@ public enum JwtUtils {
     SURNAME("surname"),
     EMAIL("email"),
     EXPIRE("ieExpire"),
-    SCOPE("scope")
-    ;
+    SCOPE("scope");
 
     private final String property;
 

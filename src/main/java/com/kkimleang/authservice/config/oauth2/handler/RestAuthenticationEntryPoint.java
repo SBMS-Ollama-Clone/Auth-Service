@@ -13,6 +13,7 @@ import java.io.IOException;
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
+
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,

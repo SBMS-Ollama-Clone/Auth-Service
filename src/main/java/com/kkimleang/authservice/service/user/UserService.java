@@ -1,29 +1,29 @@
 package com.kkimleang.authservice.service.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kkimleang.authservice.model.*;
-import com.kkimleang.authservice.util.TokenProvider;
 import com.kkimleang.authservice.dto.auth.AuthDto;
 import com.kkimleang.authservice.dto.auth.LoginRequest;
 import com.kkimleang.authservice.dto.auth.SignUpRequest;
 import com.kkimleang.authservice.enumeration.AuthProvider;
 import com.kkimleang.authservice.exception.ResourceNotFoundException;
+import com.kkimleang.authservice.model.Role;
+import com.kkimleang.authservice.model.User;
+import com.kkimleang.authservice.model.VerificationCode;
 import com.kkimleang.authservice.qpayload.UserSignUpVerification;
 import com.kkimleang.authservice.repository.UserRepository;
 import com.kkimleang.authservice.util.RandomString;
+import com.kkimleang.authservice.util.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.*;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.*;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,6 +35,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -84,7 +87,7 @@ public class UserService {
                     }
                 });
             }
-            user.setProvider(AuthProvider.local);
+            user.setProvider(AuthProvider.LOCAL);
             user.setIsEnabled(true);
             user.setIsVerified(false);
             user.setPassword(passwordEncoder.encode(user.getPassword()));

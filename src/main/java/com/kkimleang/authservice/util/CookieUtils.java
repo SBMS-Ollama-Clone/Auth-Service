@@ -1,18 +1,13 @@
 package com.kkimleang.authservice.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Base64;
-import java.util.Optional;
-
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+
+import java.io.*;
+import java.util.Base64;
+import java.util.Optional;
 
 public class CookieUtils {
     private CookieUtils() {

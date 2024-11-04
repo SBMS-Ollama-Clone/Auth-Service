@@ -1,17 +1,17 @@
 package com.kkimleang.authservice.model;
 
 import com.kkimleang.authservice.enumeration.AuthProvider;
-import com.redis.om.spring.annotations.*;
+import com.redis.om.spring.annotations.Indexed;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import java.io.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serial;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RedisHash("User")
@@ -52,4 +52,18 @@ public class User extends BaseEntityAudit {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(profileURL, user.profileURL) && Objects.equals(providerId, user.providerId) && Objects.equals(isEnabled, user.isEnabled) && Objects.equals(isVerified, user.isVerified) && provider == user.provider && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), username, password, email, profileURL, providerId, isEnabled, isVerified, provider, roles);
+    }
 }
