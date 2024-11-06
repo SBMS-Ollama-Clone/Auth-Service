@@ -7,6 +7,7 @@ authorize them to access the system. It also provides an OAuth2 endpoint for thi
 users.
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=alert_status)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=bugs)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=coverage)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SBMS-Ollama-Clone_Auth-Service&metric=ncloc)](https://sonarcloud.io/dashboard?id=SBMS-Ollama-Clone_Auth-Service)
