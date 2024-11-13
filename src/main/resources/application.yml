@@ -49,21 +49,21 @@ spring:
           google:
             clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
             clientSecret: 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
-            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
+            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8880}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
             clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
             clientSecret: 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
-            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
+            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8880}/oauth2/callback/{registrationId}"
             scope:
               - email
               - public_profile
           github:
             clientId: 363530177172-ho7j0rlr0sctj44c0pb2bgsno499rsnm.apps.googleusercontent.com
             clientSecret: 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
-            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8080}/oauth2/callback/{registrationId}"
+            redirectUri: "${GATEWAY_SERVICE_ENDPOINT_HTTP:http://localhost:8880}/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user
@@ -85,7 +85,7 @@ token:
   refreshTokenExpiresHours: 720
   issuer: jwt_issuer
 #cors:
-#  allowedOrigins: http://localhost:3000, http://localhost:4200, http://localhost:8080, http://gateway-service:8080
+#  allowedOrigins: http://localhost:3000, http://localhost:4200, http://localhost:8880, http://gateway-service:8880
 oauth:
   # After successfully authenticating with the OAuth2 Provider,
   # we'll be generating an auth token for the user and sending the token to the
